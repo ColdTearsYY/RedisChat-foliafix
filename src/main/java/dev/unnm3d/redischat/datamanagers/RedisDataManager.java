@@ -521,7 +521,8 @@ public class RedisDataManager extends RedisAbstract implements DataManager {
                         return null;
                     });
             connection.expire(DataKey.PLAYER_ACTIVE_CHANNEL_PREFIX + playerName, Duration.ofDays(7));
-            return connection.publish(DataKey.PLAYER_ACTIVE_CHANNEL_UPDATE.toString(), channelName == null ? DataKey.DELETE_TAG.toString() : channelName);
+            return connection.publish(DataKey.PLAYER_ACTIVE_CHANNEL_UPDATE.toString(),   
+    playerName + ";" + (channelName == null ? DataKey.DELETE_TAG.toString() : channelName));
         }).thenAccept(integer -> {
             if (plugin.config.debug) {
                 plugin.getLogger().info("Set Active " + channelName + " sent to " + integer + " servers");

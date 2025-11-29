@@ -146,11 +146,16 @@ public class ComponentProvider {
             if (alreadyParsed.contains(placeholder)) continue;
             alreadyParsed.add(placeholder);
 
-            String parsed = replaceAmpersandCodesWithSection(
-                    cmdSender instanceof OfflinePlayer offlinePlayer
-                            ? PlaceholderAPI.setPlaceholders(offlinePlayer, placeholder)
-                            : PlaceholderAPI.setPlaceholders(null, placeholder)
-            );
+            String parsed;
+            try {
+                parsed = replaceAmpersandCodesWithSection(
+                        cmdSender instanceof OfflinePlayer offlinePlayer
+                                ? PlaceholderAPI.setPlaceholders(offlinePlayer, placeholder)
+                                : PlaceholderAPI.setPlaceholders(null, placeholder)
+                );
+            } catch (Exception e) {
+                parsed = placeholder;
+            }
             if (parsed.contains("§")) {//If the placeholder contains legacy
                 parsed = miniMessage.serialize(
                         //Translate legacy color codes to MiniMessage
