@@ -1,11 +1,13 @@
 plugins {
-    id 'io.github.goooler.shadow' version "8.1.8"
+    id 'io.github.goooler.shadow' version "8.1.7"
     id 'maven-publish'
     id 'java'
 }
 
+
 group = 'dev.unnm3d'
 version = '5.5.16'
+
 
 repositories {
     maven { url 'https://repo.papermc.io/repository/maven-public/' }
@@ -17,13 +19,11 @@ repositories {
     maven { url 'https://repo.maven.apache.org/maven2/' }
     maven { url "https://repo.william278.net/snapshots" }
     maven { url 'https://repo.essentialsx.net/releases/' }
-    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
     maven { url "https://repo.sayandev.org/snapshots" }
-    mavenCentral()
 }
 
 dependencies {
-    implementation 'net.kyori:adventure-platform-bukkit:4.3.2'
+    implementation 'net.kyori:adventure-platform-bukkit:4.4.1'
     compileOnly 'com.mojang:brigadier:1.1.8'
 
     implementation 'com.github.Exlll.ConfigLib:configlib-paper:v4.5.0'
@@ -58,23 +58,23 @@ dependencies {
     compileOnly 'com.github.oraxen:oraxen:1.162.0'
     compileOnly 'com.github.LeonMangler:PremiumVanishAPI:2.8.8'
     compileOnly "org.sayandev:sayanvanish-api:1.7.3-SNAPSHOT"
-    compileOnly 'org.projectlombok:lombok:1.18.36'
+    compileOnly 'org.projectlombok:lombok:1.18.34'
     compileOnly 'org.spicord:spicord-common:5.7.2'
-    compileOnly 'net.dv8tion:JDA:5.2.1'
+    compileOnly 'net.dv8tion:JDA:5.0.0-beta.16'
     compileOnly 'org.apache.commons:commons-collections4:4.4'
     compileOnly('net.essentialsx:EssentialsX:2.21.0') {
         exclude group: 'org.spigotmc', module: 'spigot-api'
     }
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.11.4'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.11.4'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.11.4'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
     testImplementation 'io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT'
     testImplementation("dev.jorel:commandapi-spigot-test-toolkit:11.1.0")
     testImplementation("dev.jorel:commandapi-paper-test-toolkit:11.1.0")
     testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.72.8")
 
-    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
 }
 
 test {
