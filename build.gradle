@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'dev.unnm3d'
-version = '5.5.16-dev'
+version = '5.5.16'
 
 repositories {
     maven { url 'https://repo.papermc.io/repository/maven-public/' }
@@ -18,6 +18,7 @@ repositories {
     maven { url "https://repo.william278.net/snapshots" }
     maven { url 'https://repo.essentialsx.net/releases/' }
     maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url "https://repo.sayandev.org/snapshots" }
     mavenCentral()
 }
 
@@ -45,8 +46,8 @@ dependencies {
     implementation 'com.github.Anon8281:UniversalScheduler:0.1.6'
 
 
-    compileOnly("dev.jorel:commandapi-paper-core:11.1.0")
-    compileOnly("dev.jorel:commandapi-spigot-core:11.1.0")
+    compileOnly 'dev.jorel:commandapi-paper-core:11.1.0'
+    compileOnly 'dev.jorel:commandapi-spigot-core:11.1.0'
     compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.11.7'
     compileOnly 'io.lettuce:lettuce-core:6.5.5.RELEASE'
@@ -56,6 +57,7 @@ dependencies {
     compileOnly 'com.github.MilkBowl:VaultAPI:1.7' exclude(group: 'org.bukkit', module: 'bukkit')
     compileOnly 'com.github.oraxen:oraxen:1.162.0'
     compileOnly 'com.github.LeonMangler:PremiumVanishAPI:2.8.8'
+    compileOnly "org.sayandev:sayanvanish-api:1.7.3-SNAPSHOT"
     compileOnly 'org.projectlombok:lombok:1.18.36'
     compileOnly 'org.spicord:spicord-common:5.7.2'
     compileOnly 'net.dv8tion:JDA:5.2.1'
@@ -122,6 +124,7 @@ shadowJar {
     relocate 'de.exlll.configlib', 'dev.unnm3d.redischat.libraries.configlib'
     relocate 'xyz.xenondevs.invui', 'dev.unnm3d.redischat.libraries.invui'
     relocate 'xyz.xenondevs.inventoryaccess', 'dev.unnm3d.redischat.libraries.inventoryaccess'
+    relocate 'net.william278.uniform', 'dev.unnm3d.redischat.libraries.uniform'
     relocate 'net.kyori.adventure.platform', 'dev.unnm3d.redischat.libraries.kyori.adventure.platform'
     relocate 'com.github.Anon8281.universalScheduler', 'dev.unnm3d.redischat.libraries.universalScheduler'
 }
