@@ -46,6 +46,7 @@ dependencies {
 
 
     compileOnly("dev.jorel:commandapi-paper-core:11.1.0")
+    compileOnly("dev.jorel:commandapi-spigot-core:11.1.0")
     compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.11.7'
     compileOnly 'io.lettuce:lettuce-core:6.5.5.RELEASE'
@@ -67,6 +68,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.11.4'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.11.4'
     testImplementation 'io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT'
+    testImplementation("dev.jorel:commandapi-spigot-test-toolkit:11.1.0")
+    testImplementation("dev.jorel:commandapi-paper-test-toolkit:11.1.0")
+    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.72.8")
 
     annotationProcessor 'org.projectlombok:lombok:1.18.36'
 }
