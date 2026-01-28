@@ -6,8 +6,6 @@ import de.exlll.configlib.ConfigLib;
 import de.exlll.configlib.ConfigurationException;
 import de.exlll.configlib.YamlConfigurationProperties;
 import de.exlll.configlib.YamlConfigurations;
-import dev.jorel.commandapi.CommandAPI;
-import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.unnm3d.redischat.api.DataManager;
 import dev.unnm3d.redischat.channels.ChannelCommand;
@@ -25,10 +23,7 @@ import dev.unnm3d.redischat.datamanagers.sqlmanagers.SQLiteDataManager;
 import dev.unnm3d.redischat.discord.DiscordWebhook;
 import dev.unnm3d.redischat.discord.IDiscordHook;
 import dev.unnm3d.redischat.discord.SpicordHook;
-import dev.unnm3d.redischat.integrations.EssentialsVanishIntegration;
-import dev.unnm3d.redischat.integrations.OraxenTagResolver;
-import dev.unnm3d.redischat.integrations.PremiumVanishIntegration;
-import dev.unnm3d.redischat.integrations.SuperVanishIntegration;
+import dev.unnm3d.redischat.integrations.*;
 import dev.unnm3d.redischat.mail.MailGUIManager;
 import dev.unnm3d.redischat.mail.MailUniformCommand;
 import dev.unnm3d.redischat.moderation.MuteCommand;
@@ -103,18 +98,8 @@ public final class RedisChat extends JavaPlugin {
 
 
     @Override
-    public void onLoad() {
-        CommandAPI.onLoad(new CommandAPIBukkitConfig(this)
-                .silentLogs(false)
-                .skipReloadDatapacks(true)
-                .shouldHookPaperReload(true)
-                .verboseOutput(true));
-    }
-
-    @Override
     public void onEnable() {
         instance = this;
-        CommandAPI.onEnable();
         registeredCommands = new ArrayList<>();
         scheduler = UniversalScheduler.getScheduler(this);
 
@@ -252,6 +237,10 @@ public final class RedisChat extends JavaPlugin {
             getLogger().info("SuperVanish found, enabling integration");
             playerListManager.addVanishIntegration(new EssentialsVanishIntegration(this));
         }
+        if (getServer().getPluginManager().getPlugin("SayanVanish") != null) {
+            getLogger().info("SayanVanish found, enabling integration");
+            playerListManager.addVanishIntegration(new SayanVanishIntegration());
+        }
         if (getServer().getPluginManager().getPlugin("Spicord") != null && config.spicord.enabled()) {
             getLogger().info("Spicord found, enabling integration");
             this.discordHook = new SpicordHook(this);
@@ -359,8 +348,8 @@ public final class RedisChat extends JavaPlugin {
             this.dataManager.clearInvShareCache();
 
         PaperUniform.getInstance(this).shutdown();
-        registeredCommands.forEach(command -> CommandAPI.unregister(command.getName(), true));
-        CommandAPI.onDisable();
+        // Commands are unregistered automatically by CommandAPI plugin
+        registeredCommands.clear();
 
         if (this.playerListManager != null)
             this.playerListManager.stop();
@@ -391,11 +380,6 @@ public final class RedisChat extends JavaPlugin {
             return;
         }
 
-        CommandAPI.unregister(commandAPICommand.getName(), true);
-        for (String alias : commandAPICommand.getAliases()) {
-            if (alias.equals(commandAPICommand.getName())) continue;
-            CommandAPI.unregister(alias, true);
-        }
         commandAPICommand.register();
         registeredCommands.add(commandAPICommand);
         getLogger().info("Command " + commandAPICommand.getName() + " registered on CommandAPI!");
